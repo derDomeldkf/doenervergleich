@@ -32,6 +32,67 @@ session_start();
 
  $(document).ready(function()
 {
+	
+	$('body').on('click', '.dropdown-item', function() {
+		
+		var that=this;
+		
+		$.getJSON("content.php", {laden_id: $(that).attr('id')}, function(data)
+			{
+				
+				for (var i = 1, len = data[0].length; i <= len; i++) {
+					
+        			if ((data[0][i-1]['status'])==1) {
+        				
+        				$("#oeff_"+data[0][i-1]['tag']).append($('<div class="row"><div class="col-3">'+data[0][i-1]['start']+'</div><div class="col-2">bis</div><div class="col-3">'+data[0][i-1]['ende']+'</div></div>'));
+        				
+        			}
+        			else {
+        				$("#oeff_"+data[0][i-1]['tag']).append($('<div class="row"><div class="col">geschlossen</div></div>'));
+        			}
+        			
+        			
+        		}
+        		$("#laden_name").html(data[1]['name']);
+        		$("#laden_bewertung").html(data[1]['bewertung']);
+        		$("#laden_adresse").html(data[1]['strasse']+" "+ data[1]['nummer']+", "+data[1]['plz']+" "+data[1]['ort']);
+        		
+
+				/*for (i = 0; i < data.length; i++) {
+					
+				}
+				var oeffnung_array = jQuery.parseJSON(data);
+				var art1 = duce.key1;
+				var art2 = duce.key2;
+			var art3 = duce.key3;				
+				
+				$("#content").html(data);*/
+				
+			});
+			$("#laden_info").show();
+
+			 /* 		var th= this;
+			  		user=getCookie("user");
+					$.post("include/logout.php",{
+		   			0: user,
+		   		},
+		   		function (data) {
+						if (data.replace(" \n", "") == 1) {
+						}
+						else{
+							$(th).parent().hide();
+							$( "#login" ).show();
+						}
+					});*/
+
+			  
+	});	
+	
+	
+	
+	
+	
+	
 	$('#search').keyup(function()
 	{
 		if($(this).val().length >= 0)
@@ -46,39 +107,92 @@ session_start();
 }); 
   
   </script>
-  <form action="search.php">
-<div class="input-group input-group-lg">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroup-sizing-lg">Dönerladen suchen</span>
-  </div>
+  <div class="container">
+ 
+  <div class="row">
+  		<form action="search.php">
+			<div class="input-group input-group-lg">
+  				<div class="input-group-prepend">
+    				<span class="input-group-text" id="inputGroup-sizing-lg">Dönerladen suchen</span>
+  				</div>
+			   <div class="dropdown-menu" id="results">
+      			
+      			<?php $laden_request = $db->query("SELECT `id`, `name`, `ort`, `plz`  FROM `dv_laden` order by `bewertung` ASC LIMIT 5"); 
+		
+						if(isset($laden_request->num_rows) and  $laden_request->num_rows!= 0) {
+							while($laden = $laden_request->fetch_assoc()){
+								$all_laden[]=array("plz" => $laden['plz'] , "ort" => $laden['ort'] , "name" => $laden['name'], "id" => $laden['id']);
+							}
+							foreach($all_laden as $all_laden_each){
+								echo '<a class="dropdown-item" id="'.$all_laden_each['id'].'" href="#'.$all_laden_each['id'].'">'. $all_laden_each['plz'] .' '. $all_laden_each['ort'] .' - '. $all_laden_each['name'] .'</a>';
+							}
+						}
+					?>
+					<a class="dropdown-item" href="#">Alle anzeigen</a>
+      		</div>
+				<input type="text" id="search" name="search" list="laeden" class=" dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+		</form>
 
-
-    
-    <div class="dropdown-menu" id="results">
-      <a class="dropdown-item" href="#">Alle anzeigen</a>
+		</div>
+		</div>
+		<div class="container  mt-3">
+		<div class="col-6" id="laden_info" style="display:none;">
+     <div class="row  py-2">
+     <div class="col" id="laden_name">
+     
+    </div>
+    <div id="laden_bewertung" class="col">
       
     </div>
+     
+     
+     </div>
+     
+     <div class="row  py-2">
+     
 
-		<input type="text" id="search" name="search" list="laeden"/
-class=" dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"		
-		> 
-	<?php ?>
-	
-  
-</form>
-</div>		
-		<!-- Content here -->
+	<div id="laden_adresse" class="col">
+      
+    </div>
+   
+	</div>
+<div class="row  py-2">
+<div class="col">
+      <b>Öffnungszeiten</b>
+    </div>
+
+</div>
+<div class="row  py-2">
+<div class="col-4 pr-3">Montag:</div> <div class="col-6"  id="oeff_1"></div>
+</div>
+<div class="row  py-2">
+<div class="col-4 pr-3">Dienstag:</div> <div class="col-6"  id="oeff_2"></div>
+</div>
+<div class="row  py-2">
+<div class="col-4 pr-3">Mittwoch:</div> <div class="col-6"  id="oeff_3"></div>
+</div>
+<div class="row  py-2">
+<div class="col-4 pr-3">Donnerstag:</div> <div class="col-6"  id="oeff_4"></div>
+</div>
+<div class="row  py-2">
+<div class="col-4 pr-3">Freitag:</div> <div class="col-6"  id="oeff_5"></div>
+</div>
+<div class="row  py-2">
+<div class="col-4 pr-3">Samstag:</div> <div class="col-6"  id="oeff_6"></div>
+</div>
+<div class="row  py-2">
+<div class="col-4 pr-3">Sonntag:</div> <div class="col-6"  id="oeff_7"></div>
 </div>
 		
-		
-		
-		<div class="col-6">
-      	
+
+		</div>	
+
     		
 		<div class="col-3">
 		
 		</div>	
 		
-    
+
+	</div>
   </body>
 </html>

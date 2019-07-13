@@ -2,19 +2,18 @@
   include("include/db_connect.php");
 
 		
-				$laden_name_request = $db->query("SELECT `name` FROM `dv_laden` WHERE `name` LIKE '%" . $_GET['search'] . "%' order by `id` ASC LIMIT 5"); 
+			$laden_request = $db->query("SELECT `id`, `name`, `ort`, `plz`  FROM `dv_laden` WHERE `name` LIKE '%" . $_GET['search'] . "%' or `plz` LIKE '%" . $_GET['search'] . "%' or `ort` LIKE '%" . $_GET['search'] . "%' order by `id` ASC LIMIT 5"); 
+		
+			if(isset($laden_request->num_rows) and  $laden_request->num_rows!= 0) {
+			while($laden = $laden_request->fetch_assoc()){
+				$all_laden[]=array("plz" => $laden['plz'] , "ort" => $laden['ort'] , "name" => $laden['name'], "id" => $laden['id']);
+					
 			
-			if(isset($laden_name_request->num_rows) and  $laden_name_request->num_rows!= 0) {
-			while($laden_name = $laden_name_request->fetch_assoc()){
-				$all_laden_name[]=$laden_name['name'];
-				
-				
-				
       
 			}
-			foreach($all_laden_name as $laden_name_each){
+			foreach($all_laden as $all_laden_each){
 					
-					echo '<a class="dropdown-item" href="#">'. $laden_name_each .'</a>';
+					echo '<a class="dropdown-item" id="'.$all_laden_each['id'].'" href="#'.$all_laden_each['id'].'">'. $all_laden_each['plz'] .' '. $all_laden_each['ort'] .' - '. $all_laden_each['name'] .'</a>';
 				
 				}
 			}
