@@ -44,7 +44,7 @@ session_start();
 					
         			if ((data[0][i-1]['status'])==1) {
         				
-        				$("#oeff_"+data[0][i-1]['tag']).append($('<div class="row created"><div class="col-3">'+data[0][i-1]['start']+'</div><div class="col-2">bis</div><div class="col-3">'+data[0][i-1]['ende']+'</div></div>'));
+        				$("#oeff_"+data[0][i-1]['tag']).append($('<div class="row created"><div class="col">'+data[0][i-1]['start']+'  bis  '+data[0][i-1]['ende']+'</div></div>'));
         				
         			}
         			else {
