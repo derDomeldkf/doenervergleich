@@ -163,25 +163,25 @@ session_start();
 
 </div>
 <div class="row  py-2">
-<div class="col-4 pr-3">Montag:</div> <div class="col-6"  id="oeff_1"></div>
+<div class="col-5 ">Montag:</div> <div class="col-7"  id="oeff_1"></div>
 </div>
 <div class="row  py-2">
-<div class="col-4 pr-3">Dienstag:</div> <div class="col-6"  id="oeff_2"></div>
+<div class="col-5 ">Dienstag:</div> <div class="col-7"  id="oeff_2"></div>
 </div>
 <div class="row  py-2">
-<div class="col-4 pr-3">Mittwoch:</div> <div class="col-6"  id="oeff_3"></div>
+<div class="col-5 ">Mittwoch:</div> <div class="col-7"  id="oeff_3"></div>
 </div>
 <div class="row  py-2">
-<div class="col-4 pr-3">Donnerstag:</div> <div class="col-6"  id="oeff_4"></div>
+<div class="col-5 ">Donnerstag:</div> <div class="col-7"  id="oeff_4"></div>
 </div>
 <div class="row  py-2">
-<div class="col-4 pr-3">Freitag:</div> <div class="col-6"  id="oeff_5"></div>
+<div class="col-5 ">Freitag:</div> <div class="col-7"  id="oeff_5"></div>
 </div>
 <div class="row  py-2">
-<div class="col-4 pr-3">Samstag:</div> <div class="col-6"  id="oeff_6"></div>
+<div class="col-5">Samstag:</div> <div class="col-7"  id="oeff_6"></div>
 </div>
 <div class="row  py-2">
-<div class="col-4 pr-3">Sonntag:</div> <div class="col-6"  id="oeff_7"></div>
+<div class="col-5">Sonntag:</div> <div class="col-7"  id="oeff_7"></div>
 </div>
 		
 
