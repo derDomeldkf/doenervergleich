@@ -36,7 +36,7 @@ session_start();
 	$('body').on('click', '.dropdown-item', function() {
 		
 		var that=this;
-		
+		$( ".created" ).remove();
 		$.getJSON("content.php", {laden_id: $(that).attr('id')}, function(data)
 			{
 				
@@ -44,11 +44,11 @@ session_start();
 					
         			if ((data[0][i-1]['status'])==1) {
         				
-        				$("#oeff_"+data[0][i-1]['tag']).append($('<div class="row"><div class="col-3">'+data[0][i-1]['start']+'</div><div class="col-2">bis</div><div class="col-3">'+data[0][i-1]['ende']+'</div></div>'));
+        				$("#oeff_"+data[0][i-1]['tag']).append($('<div class="row created"><div class="col-3">'+data[0][i-1]['start']+'</div><div class="col-2">bis</div><div class="col-3">'+data[0][i-1]['ende']+'</div></div>'));
         				
         			}
         			else {
-        				$("#oeff_"+data[0][i-1]['tag']).append($('<div class="row"><div class="col">geschlossen</div></div>'));
+        				$("#oeff_"+data[0][i-1]['tag']).append($('<div class="row created"><div class="col">geschlossen</div></div>'));
         			}
         			
         			
